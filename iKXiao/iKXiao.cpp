@@ -972,10 +972,12 @@ public:
 			//if the file path exist,load the file to workbook
 			if (IsPathExist(xlsxFilepath))
 			{
+				std::string utf8Str = AnsiToUtf8(xlsxFilepath);
+
 				if (sPassword.empty())
-					m_workbook.load(xlnt::path(xlsxFilepath));
+					m_workbook.load(xlnt::path(utf8Str));
 				else
-					m_workbook.load(xlnt::path(xlsxFilepath), sPassword);
+					m_workbook.load(xlnt::path(utf8Str), sPassword);
 			}
 		}
 		catch (const std::exception& ex)

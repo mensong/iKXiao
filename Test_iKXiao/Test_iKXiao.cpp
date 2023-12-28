@@ -6,7 +6,7 @@
 
 void normalTest()
 {
-    WorkBook* wb = iKXiao::Ins().OpenExcel("admin.xlsx", NULL);
+    WorkBook* wb = iKXiao::Ins().OpenExcel("支持中文.xlsx", NULL);
     if (wb)
     {
         WorkSheet* sheet = wb->OpenCurrentSheet();
@@ -138,6 +138,8 @@ int main()
     std::cout << std::endl << std::endl;
     
     testConfig();
+
+    getchar();
 
     return 0;
 }
