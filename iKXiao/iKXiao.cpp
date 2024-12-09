@@ -164,6 +164,8 @@ class CellImp
 	, public BufferManager
 	, public LastError
 {
+	friend class WorkSheetImp;
+
 public:
 	CellImp(const xlnt::cell& cell)
 		: m_cell(cell)
@@ -768,6 +770,21 @@ public:
 			return;
 		CellImp* imp = (CellImp*)cell;
 		delete imp;
+	}
+
+	virtual void FreezePanes(Cell* top_left_cell) override
+	{
+		m_sheet.freeze_panes(((CellImp*)top_left_cell)->raw());
+	}
+
+	virtual void UnfreezePanes() override
+	{
+		m_sheet.unfreeze_panes();
+	}
+
+	virtual bool HasFreezePanes() override
+	{
+		return m_sheet.has_frozen_panes();
 	}
 
 	virtual void FreeString(char* buff) override

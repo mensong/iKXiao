@@ -87,6 +87,10 @@ public:
 	virtual Cell*			OpenCell(const char* refName) = 0;
 	virtual void			CloseCell(Cell* cell) = 0;
 
+	virtual void			FreezePanes(Cell* top_left_cell) = 0;
+	virtual void			UnfreezePanes() = 0;
+	virtual bool			HasFreezePanes() = 0;
+
 	virtual void			FreeString(char* buff) = 0;
 };
 
@@ -146,7 +150,8 @@ public:
 	{
 		char selfPath[MAX_PATH];
 		MEMORY_BASIC_INFORMATION mbi;
-		HMODULE hModule = ((::VirtualQuery(LoadLibraryFromCurrentDir, &mbi, sizeof(mbi)) != 0) ? (HMODULE)mbi.AllocationBase : NULL);
+		HMODULE hModule = ((::VirtualQuery(LoadLibraryFromCurrentDir, &mbi, sizeof(mbi)) != 0) ?
+			(HMODULE)mbi.AllocationBase : NULL);
 		::GetModuleFileNameA(hModule, selfPath, MAX_PATH);
 		std::string moduleDir(selfPath);
 		size_t idx = moduleDir.find_last_of('\\');
